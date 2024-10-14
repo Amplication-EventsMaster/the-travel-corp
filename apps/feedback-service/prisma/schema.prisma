@@ -13,6 +13,7 @@ model Feedback {
   createdAt DateTime @default(now())
   id        String   @id @default(cuid())
   rating    Int?
+  remarks   String?
   reviews   Review[]
   updatedAt DateTime @updatedAt
 }

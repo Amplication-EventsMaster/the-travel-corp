@@ -6,5 +6,6 @@ export type FeedbackOrderByInput = {
   createdAt?: SortOrder;
   id?: SortOrder;
   rating?: SortOrder;
+  remarks?: SortOrder;
   updatedAt?: SortOrder;
 };

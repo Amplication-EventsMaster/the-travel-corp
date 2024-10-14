@@ -19,6 +19,7 @@ export const FeedbackCreate = (props: CreateProps): React.ReactElement => {
         <TextInput label="Booking" source="booking" />
         <TextInput label="comments" multiline source="comments" />
         <NumberInput step={1} label="rating" source="rating" />
+        <TextInput label="remarks" source="remarks" />
         <ReferenceArrayInput source="reviews" reference="Review">
           <SelectArrayInput
             optionText={ReviewTitle}

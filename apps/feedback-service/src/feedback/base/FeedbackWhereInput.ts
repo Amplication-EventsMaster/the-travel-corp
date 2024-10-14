@@ -66,6 +66,17 @@ class FeedbackWhereInput {
 
   @ApiProperty({
     required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  remarks?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
     type: () => ReviewListRelationFilter,
   })
   @ValidateNested()
