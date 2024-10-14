@@ -1,0 +1,30 @@
+datasource db {
+  provider = "sqlserver"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Customer {
+  company     Company? @relation(fields: [companyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  companyId   String?
+  createdAt   DateTime @default(now())
+  email       String?
+  firstName   String?
+  id          String   @id @default(cuid())
+  lastName    String?
+  phoneNumber String?
+  updatedAt   DateTime @updatedAt
+}
+
+model Company {
+  createdAt DateTime   @default(now())
+  customers Customer[]
+  id        String     @id @default(cuid())
+  industry  String?
+  name      String?
+  updatedAt DateTime   @updatedAt
+  website   String?
+}
