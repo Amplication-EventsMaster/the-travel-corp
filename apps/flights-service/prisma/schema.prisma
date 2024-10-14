@@ -1,0 +1,43 @@
+datasource db {
+  provider = "sqlserver"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Airline {
+  arrivalFlights Flight?  @relation(name: "arrivalAirport")
+  country        String?
+  createdAt      DateTime @default(now())
+  flights        Flight[] @relation(name: "AirlineOnFlights")
+  id             String   @id @default(cuid())
+  name           String?
+  updatedAt      DateTime @updatedAt
+}
+
+model Airport {
+  createdAt        DateTime @default(now())
+  departureFlights Flight?
+  id               String   @id @default(cuid())
+  location         String?
+  name             String?
+  updatedAt        DateTime @updatedAt
+}
+
+model Flight {
+  airline            Airline?  @relation(name: "AirlineOnFlights", fields: [airlineId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  airlineId          String?
+  arrivalAirport     Airline?  @relation(name: "arrivalAirport", fields: [arrivalAirportId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  arrivalAirportId   String?   @unique
+  arrivalTime        DateTime?
+  availableSeats     Int?
+  createdAt          DateTime  @default(now())
+  departureAirport   Airport?  @relation(fields: [departureAirportId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  departureAirportId String?   @unique
+  departureTime      DateTime?
+  flightNumber       String?
+  id                 String    @id @default(cuid())
+  updatedAt          DateTime  @updatedAt
+}
