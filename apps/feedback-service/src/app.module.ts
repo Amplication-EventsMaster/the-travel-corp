@@ -1,4 +1,7 @@
 import { Module } from "@nestjs/common";
+import { FeedbackModule } from "./feedback/feedback.module";
+import { TypeModelModule } from "./typeModel/typeModel.module";
+import { ReviewModule } from "./review/review.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -11,6 +14,9 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
 @Module({
   controllers: [],
   imports: [
+    FeedbackModule,
+    TypeModelModule,
+    ReviewModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

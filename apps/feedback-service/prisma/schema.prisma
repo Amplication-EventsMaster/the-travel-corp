@@ -6,3 +6,33 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
+
+model Feedback {
+  booking   String?
+  comments  String?
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  rating    Int?
+  reviews   Review[]
+  updatedAt DateTime @updatedAt
+}
+
+model TypeModel {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  name      String?
+  reviews   Review[]
+  updatedAt DateTime @updatedAt
+}
+
+model Review {
+  content     String?
+  createdAt   DateTime   @default(now())
+  feedback    Feedback?  @relation(fields: [feedbackId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  feedbackId  String?
+  id          String     @id @default(cuid())
+  title       String?
+  typeField   TypeModel? @relation(fields: [typeFieldId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  typeFieldId String?
+  updatedAt   DateTime   @updatedAt
+}
