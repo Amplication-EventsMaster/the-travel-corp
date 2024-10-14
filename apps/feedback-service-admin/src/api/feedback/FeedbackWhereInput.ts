@@ -8,5 +8,6 @@ export type FeedbackWhereInput = {
   comments?: StringNullableFilter;
   id?: StringFilter;
   rating?: IntNullableFilter;
+  remarks?: StringNullableFilter;
   reviews?: ReviewListRelationFilter;
 };

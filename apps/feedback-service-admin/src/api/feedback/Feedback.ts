@@ -6,6 +6,7 @@ export type Feedback = {
   createdAt: Date;
   id: string;
   rating: number | null;
+  remarks: string | null;
   reviews?: Array<Review>;
   updatedAt: Date;
 };
