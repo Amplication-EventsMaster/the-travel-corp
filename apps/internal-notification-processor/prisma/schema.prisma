@@ -1,0 +1,48 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model MessageQueue {
+  createdAt            DateTime                @default(now())
+  id                   String                  @id @default(cuid())
+  notificationAttempts NotificationAttempt[]
+  priority             Int?
+  processorLogs        ProcessorLog[]
+  queueName            String?
+  status               EnumMessageQueueStatus?
+  updatedAt            DateTime                @updatedAt
+}
+
+model NotificationAttempt {
+  attemptCount   Int?
+  createdAt      DateTime      @default(now())
+  id             String        @id @default(cuid())
+  messageQueue   MessageQueue? @relation(fields: [messageQueueId], references: [id])
+  messageQueueId String?
+  result         String?
+  successful     Boolean?
+  updatedAt      DateTime      @updatedAt
+}
+
+model ProcessorLog {
+  createdAt      DateTime                 @default(now())
+  id             String                   @id @default(cuid())
+  logType        EnumProcessorLogLogType?
+  messageQueue   MessageQueue?            @relation(fields: [messageQueueId], references: [id])
+  messageQueueId String?
+  timestamp      DateTime?
+  updatedAt      DateTime                 @updatedAt
+}
+
+enum EnumMessageQueueStatus {
+  Option1
+}
+
+enum EnumProcessorLogLogType {
+  Option1
+}
