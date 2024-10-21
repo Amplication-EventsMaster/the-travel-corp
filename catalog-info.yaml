@@ -2,7 +2,7 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: Amplication-internal-notification-processor
-  description: 
+  description: handle and streamline the processing of notification messages within the system
   labels:
     vendor: "amplication"
   annotations:
