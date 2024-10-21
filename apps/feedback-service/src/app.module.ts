@@ -1,4 +1,17 @@
 import { Module } from "@nestjs/common";
+
+import {
+  OpenTelemetryModule,
+  PipeInjector,
+  ControllerInjector,
+  EventEmitterInjector,
+  GraphQLResolverInjector,
+  GuardInjector,
+} from "@amplication/opentelemetry-nestjs";
+
+import { HttpInstrumentation } from "@opentelemetry/instrumentation-http";
+import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-grpc";
+import { BatchSpanProcessor } from "@opentelemetry/sdk-trace-node";
 import { FeedbackModule } from "./feedback/feedback.module";
 import { TypeModelModule } from "./typeModel/typeModel.module";
 import { ReviewModule } from "./review/review.module";
@@ -38,6 +51,26 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
       },
       inject: [ConfigService],
       imports: [ConfigModule],
+    }),
+    OpenTelemetryModule.forRoot({
+      serviceName: "Feedback service",
+      spanProcessor: new BatchSpanProcessor(new OTLPTraceExporter()),
+      instrumentations: [
+        new HttpInstrumentation({
+          requestHook: (span, request) => {
+            if (request.method)
+              span.setAttribute("http.method", request.method);
+          },
+        }),
+      ],
+
+      traceAutoInjectors: [
+        ControllerInjector,
+        EventEmitterInjector,
+        GraphQLResolverInjector,
+        GuardInjector,
+        PipeInjector,
+      ],
     }),
   ],
   providers: [],
