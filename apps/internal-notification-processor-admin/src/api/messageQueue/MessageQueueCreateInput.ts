@@ -2,6 +2,7 @@ import { NotificationAttemptCreateNestedManyWithoutMessageQueuesInput } from "./
 import { ProcessorLogCreateNestedManyWithoutMessageQueuesInput } from "./ProcessorLogCreateNestedManyWithoutMessageQueuesInput";
 
 export type MessageQueueCreateInput = {
+  comment?: string | null;
   notificationAttempts?: NotificationAttemptCreateNestedManyWithoutMessageQueuesInput;
   priority?: number | null;
   processorLogs?: ProcessorLogCreateNestedManyWithoutMessageQueuesInput;

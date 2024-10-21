@@ -8,6 +8,7 @@ generator client {
 }
 
 model MessageQueue {
+  comment              String?
   createdAt            DateTime                @default(now())
   id                   String                  @id @default(cuid())
   notificationAttempts NotificationAttempt[]
