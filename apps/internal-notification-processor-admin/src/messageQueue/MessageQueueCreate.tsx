@@ -4,10 +4,10 @@ import {
   Create,
   SimpleForm,
   CreateProps,
+  TextInput,
   ReferenceArrayInput,
   SelectArrayInput,
   NumberInput,
-  TextInput,
   SelectInput,
 } from "react-admin";
 
@@ -18,6 +18,7 @@ export const MessageQueueCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
+        <TextInput label="comment" source="comment" />
         <ReferenceArrayInput
           source="notificationAttempts"
           reference="NotificationAttempt"

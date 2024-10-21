@@ -2,6 +2,7 @@ import { NotificationAttempt } from "../notificationAttempt/NotificationAttempt"
 import { ProcessorLog } from "../processorLog/ProcessorLog";
 
 export type MessageQueue = {
+  comment: string | null;
   createdAt: Date;
   id: string;
   notificationAttempts?: Array<NotificationAttempt>;

@@ -2,6 +2,7 @@ import { NotificationAttemptUpdateManyWithoutMessageQueuesInput } from "./Notifi
 import { ProcessorLogUpdateManyWithoutMessageQueuesInput } from "./ProcessorLogUpdateManyWithoutMessageQueuesInput";
 
 export type MessageQueueUpdateInput = {
+  comment?: string | null;
   notificationAttempts?: NotificationAttemptUpdateManyWithoutMessageQueuesInput;
   priority?: number | null;
   processorLogs?: ProcessorLogUpdateManyWithoutMessageQueuesInput;

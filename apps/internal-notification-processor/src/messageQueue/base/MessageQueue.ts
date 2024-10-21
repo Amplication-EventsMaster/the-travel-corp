@@ -13,14 +13,14 @@ import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 
 import {
-  IsDate,
   IsString,
-  ValidateNested,
+  MaxLength,
   IsOptional,
+  IsDate,
+  ValidateNested,
   IsInt,
   Min,
   Max,
-  MaxLength,
   IsEnum,
 } from "class-validator";
 
@@ -31,6 +31,18 @@ import { EnumMessageQueueStatus } from "./EnumMessageQueueStatus";
 
 @ObjectType()
 class MessageQueue {
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  comment!: string | null;
+
   @ApiProperty({
     required: true,
   })

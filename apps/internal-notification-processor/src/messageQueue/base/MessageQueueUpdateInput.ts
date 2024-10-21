@@ -11,23 +11,35 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { NotificationAttemptUpdateManyWithoutMessageQueuesInput } from "./NotificationAttemptUpdateManyWithoutMessageQueuesInput";
 import {
-  ValidateNested,
+  IsString,
+  MaxLength,
   IsOptional,
+  ValidateNested,
   IsInt,
   Min,
   Max,
-  IsString,
-  MaxLength,
   IsEnum,
 } from "class-validator";
+import { NotificationAttemptUpdateManyWithoutMessageQueuesInput } from "./NotificationAttemptUpdateManyWithoutMessageQueuesInput";
 import { Type } from "class-transformer";
 import { ProcessorLogUpdateManyWithoutMessageQueuesInput } from "./ProcessorLogUpdateManyWithoutMessageQueuesInput";
 import { EnumMessageQueueStatus } from "./EnumMessageQueueStatus";
 
 @InputType()
 class MessageQueueUpdateInput {
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  comment?: string | null;
+
   @ApiProperty({
     required: false,
     type: () => NotificationAttemptUpdateManyWithoutMessageQueuesInput,
