@@ -16,6 +16,7 @@ export const FeedbackList = (props: ListProps): React.ReactElement => {
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
         <TextField label="rating" source="rating" />
+        <TextField label="remarks" source="remarks" />
         <DateField source="updatedAt" label="Updated At" />{" "}
       </Datagrid>
     </List>
