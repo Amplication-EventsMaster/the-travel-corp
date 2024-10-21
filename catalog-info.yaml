@@ -1,0 +1,19 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: Amplication-feedback-service
+  description:  collects and processes user feedback, aiding in product improvement and customer satisfaction.
+  labels:
+    vendor: "amplication"
+  annotations:
+    github.com/team-slug: "backstage/maintainers"
+    github.com/project-slug: "backstage/backstage"
+  tags:
+    - "Node.js"
+  links:
+    - url: https://server.amplication-sandbox.com/cm20l56q1010udth4kthgnint
+      title: Amplication Platform
+spec:
+  type: service
+  lifecycle: production
+  owner: development
