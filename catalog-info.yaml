@@ -1,0 +1,19 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: Amplication-internal-notification-processor
+  description: 
+  labels:
+    vendor: "amplication"
+  annotations:
+    github.com/team-slug: "backstage/maintainers"
+    github.com/project-slug: "backstage/backstage"
+  tags:
+    - "Node.js"
+  links:
+    - url: https://server.amplication-sandbox.com/cm2inlcg800a1hg5xldlbiybr
+      title: Amplication Platform
+spec:
+  type: service
+  lifecycle: production
+  owner: development
