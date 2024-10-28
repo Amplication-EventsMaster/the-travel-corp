@@ -12,7 +12,7 @@ services:
       DB_URL: "`sqlserver://db:1433;database=${DB_NAME};user=${DB_USER};password=${DB\
         _PASSWORD};TrustServerCertificate=true`"
     depends_on:
-      - migrate
+      - redis
     restart: on-failure
   migrate:
     build:
@@ -55,5 +55,14 @@ services:
       interval: 10s
       retries: 10
       start_period: 10s
+  redis:
+    container_name: ${REDIS_HOST}
+    image: redis:7
+    ports:
+      - ${REDIS_PORT}:6379
+    volumes:
+      - redis:/data
 volumes:
   mssql: ~
+  redis:
+    driver: local
