@@ -27,5 +27,14 @@ services:
       interval: 10s
       retries: 10
       start_period: 10s
+  redis:
+    container_name: ${REDIS_HOST}
+    image: redis:7
+    ports:
+      - ${REDIS_PORT}:6379
+    volumes:
+      - redis:/data
 volumes:
   mssql: ~
+  redis:
+    driver: local
