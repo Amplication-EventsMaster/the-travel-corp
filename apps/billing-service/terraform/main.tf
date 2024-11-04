@@ -5,7 +5,6 @@ provider "aws" {
     tags = {
       Terraform   = "true"
       Amplication = "true"
-      UseNewSecurityGroup = "true"
       Environment = local.environment
     }
   }
