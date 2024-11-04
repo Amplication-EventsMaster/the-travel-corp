@@ -14,6 +14,7 @@ public static class CustomersExtensions
             Id = model.Id,
             Invoices = model.Invoices?.Select(x => x.Id).ToList(),
             Name = model.Name,
+            Phone = model.Phone,
             UpdatedAt = model.UpdatedAt,
         };
     }
@@ -27,7 +28,8 @@ public static class CustomersExtensions
         {
             Id = uniqueId.Id,
             Email = updateDto.Email,
-            Name = updateDto.Name
+            Name = updateDto.Name,
+            Phone = updateDto.Phone
         };
 
         if (updateDto.CreatedAt != null)

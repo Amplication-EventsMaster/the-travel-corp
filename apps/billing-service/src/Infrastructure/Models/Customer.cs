@@ -20,6 +20,9 @@ public class CustomerDbModel
     [StringLength(1000)]
     public string? Name { get; set; }
 
+    [StringLength(1000)]
+    public string? Phone { get; set; }
+
     [Required()]
     public DateTime UpdatedAt { get; set; }
 }
