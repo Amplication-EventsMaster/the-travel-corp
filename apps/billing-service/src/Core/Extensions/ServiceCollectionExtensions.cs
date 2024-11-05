@@ -10,6 +10,7 @@ public static class ServiceCollectionExtensions
     public static void RegisterServices(this IServiceCollection services)
     {
         services.AddScoped<ICustomersService, CustomersService>();
+        services.AddScoped<IFeedbacksService, FeedbacksService>();
         services.AddScoped<IInvoicesService, InvoicesService>();
         services.AddScoped<IPaymentsService, PaymentsService>();
     }

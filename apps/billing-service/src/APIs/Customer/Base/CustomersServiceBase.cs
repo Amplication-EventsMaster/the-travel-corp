@@ -37,6 +37,15 @@ public abstract class CustomersServiceBase : ICustomersService
         {
             customer.Id = createDto.Id;
         }
+        if (createDto.Feedbacks != null)
+        {
+            customer.Feedbacks = await _context
+                .Feedbacks.Where(feedback =>
+                    createDto.Feedbacks.Select(t => t.Id).Contains(feedback.Id)
+                )
+                .ToListAsync();
+        }
+
         if (createDto.Invoices != null)
         {
             customer.Invoices = await _context
@@ -81,6 +90,7 @@ public abstract class CustomersServiceBase : ICustomersService
     {
         var customers = await _context
             .Customers.Include(x => x.Invoices)
+            .Include(x => x.Feedbacks)
             .ApplyWhere(findManyArgs.Where)
             .ApplySkip(findManyArgs.Skip)
             .ApplyTake(findManyArgs.Take)
@@ -126,6 +136,15 @@ public abstract class CustomersServiceBase : ICustomersService
     {
         var customer = updateDto.ToModel(uniqueId);
 
+        if (updateDto.Feedbacks != null)
+        {
+            customer.Feedbacks = await _context
+                .Feedbacks.Where(feedback =>
+                    updateDto.Feedbacks.Select(t => t).Contains(feedback.Id)
+                )
+                .ToListAsync();
+        }
+
         if (updateDto.Invoices != null)
         {
             customer.Invoices = await _context
@@ -150,6 +169,115 @@ public abstract class CustomersServiceBase : ICustomersService
                 throw;
             }
         }
+    }
+
+    /// <summary>
+    /// Connect multiple Feedbacks records to Customer
+    /// </summary>
+    public async Task ConnectFeedbacks(
+        CustomerWhereUniqueInput uniqueId,
+        FeedbackWhereUniqueInput[] childrenIds
+    )
+    {
+        var parent = await _context
+            .Customers.Include(x => x.Feedbacks)
+            .FirstOrDefaultAsync(x => x.Id == uniqueId.Id);
+        if (parent == null)
+        {
+            throw new NotFoundException();
+        }
+
+        var children = await _context
+            .Feedbacks.Where(t => childrenIds.Select(x => x.Id).Contains(t.Id))
+            .ToListAsync();
+        if (children.Count == 0)
+        {
+            throw new NotFoundException();
+        }
+
+        var childrenToConnect = children.Except(parent.Feedbacks);
+
+        foreach (var child in childrenToConnect)
+        {
+            parent.Feedbacks.Add(child);
+        }
+
+        await _context.SaveChangesAsync();
+    }
+
+    /// <summary>
+    /// Disconnect multiple Feedbacks records from Customer
+    /// </summary>
+    public async Task DisconnectFeedbacks(
+        CustomerWhereUniqueInput uniqueId,
+        FeedbackWhereUniqueInput[] childrenIds
+    )
+    {
+        var parent = await _context
+            .Customers.Include(x => x.Feedbacks)
+            .FirstOrDefaultAsync(x => x.Id == uniqueId.Id);
+        if (parent == null)
+        {
+            throw new NotFoundException();
+        }
+
+        var children = await _context
+            .Feedbacks.Where(t => childrenIds.Select(x => x.Id).Contains(t.Id))
+            .ToListAsync();
+
+        foreach (var child in children)
+        {
+            parent.Feedbacks?.Remove(child);
+        }
+        await _context.SaveChangesAsync();
+    }
+
+    /// <summary>
+    /// Find multiple Feedbacks records for Customer
+    /// </summary>
+    public async Task<List<Feedback>> FindFeedbacks(
+        CustomerWhereUniqueInput uniqueId,
+        FeedbackFindManyArgs customerFindManyArgs
+    )
+    {
+        var feedbacks = await _context
+            .Feedbacks.Where(m => m.CustomerId == uniqueId.Id)
+            .ApplyWhere(customerFindManyArgs.Where)
+            .ApplySkip(customerFindManyArgs.Skip)
+            .ApplyTake(customerFindManyArgs.Take)
+            .ApplyOrderBy(customerFindManyArgs.SortBy)
+            .ToListAsync();
+
+        return feedbacks.Select(x => x.ToDto()).ToList();
+    }
+
+    /// <summary>
+    /// Update multiple Feedbacks records for Customer
+    /// </summary>
+    public async Task UpdateFeedbacks(
+        CustomerWhereUniqueInput uniqueId,
+        FeedbackWhereUniqueInput[] childrenIds
+    )
+    {
+        var customer = await _context
+            .Customers.Include(t => t.Feedbacks)
+            .FirstOrDefaultAsync(x => x.Id == uniqueId.Id);
+        if (customer == null)
+        {
+            throw new NotFoundException();
+        }
+
+        var children = await _context
+            .Feedbacks.Where(a => childrenIds.Select(x => x.Id).Contains(a.Id))
+            .ToListAsync();
+
+        if (children.Count == 0)
+        {
+            throw new NotFoundException();
+        }
+
+        customer.Feedbacks = children;
+        await _context.SaveChangesAsync();
     }
 
     /// <summary>

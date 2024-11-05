@@ -13,4 +13,6 @@ public class BillingServiceDbContext : DbContext
     public DbSet<CustomerDbModel> Customers { get; set; }
 
     public DbSet<PaymentDbModel> Payments { get; set; }
+
+    public DbSet<FeedbackDbModel> Feedbacks { get; set; }
 }
