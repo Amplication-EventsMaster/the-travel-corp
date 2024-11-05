@@ -6,6 +6,9 @@ namespace BillingService.Infrastructure.Models;
 [Table("Customers")]
 public class CustomerDbModel
 {
+    [StringLength(1000)]
+    public string? Address { get; set; }
+
     [Required()]
     public DateTime CreatedAt { get; set; }
 

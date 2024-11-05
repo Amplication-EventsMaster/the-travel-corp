@@ -9,6 +9,7 @@ public static class CustomersExtensions
     {
         return new Customer
         {
+            Address = model.Address,
             CreatedAt = model.CreatedAt,
             Email = model.Email,
             Id = model.Id,
@@ -27,6 +28,7 @@ public static class CustomersExtensions
         var customer = new CustomerDbModel
         {
             Id = uniqueId.Id,
+            Address = updateDto.Address,
             Email = updateDto.Email,
             Name = updateDto.Name,
             Phone = updateDto.Phone
