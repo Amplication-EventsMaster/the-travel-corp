@@ -12,7 +12,6 @@ public static class CustomersExtensions
             Address = model.Address,
             CreatedAt = model.CreatedAt,
             Email = model.Email,
-            Feedbacks = model.Feedbacks?.Select(x => x.Id).ToList(),
             Id = model.Id,
             Invoices = model.Invoices?.Select(x => x.Id).ToList(),
             Name = model.Name,

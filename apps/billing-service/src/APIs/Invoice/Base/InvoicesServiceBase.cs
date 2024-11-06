@@ -85,8 +85,8 @@ public abstract class InvoicesServiceBase : IInvoicesService
     public async Task<List<Invoice>> Invoices(InvoiceFindManyArgs findManyArgs)
     {
         var invoices = await _context
-            .Invoices.Include(x => x.Customer)
-            .Include(x => x.Payments)
+            .Invoices.Include(x => x.Payments)
+            .Include(x => x.Customer)
             .ApplyWhere(findManyArgs.Where)
             .ApplySkip(findManyArgs.Skip)
             .ApplyTake(findManyArgs.Take)

@@ -36,38 +36,6 @@ public interface ICustomersService
     public Task UpdateCustomer(CustomerWhereUniqueInput uniqueId, CustomerUpdateInput updateDto);
 
     /// <summary>
-    /// Connect multiple Feedbacks records to Customer
-    /// </summary>
-    public Task ConnectFeedbacks(
-        CustomerWhereUniqueInput uniqueId,
-        FeedbackWhereUniqueInput[] feedbacksId
-    );
-
-    /// <summary>
-    /// Disconnect multiple Feedbacks records from Customer
-    /// </summary>
-    public Task DisconnectFeedbacks(
-        CustomerWhereUniqueInput uniqueId,
-        FeedbackWhereUniqueInput[] feedbacksId
-    );
-
-    /// <summary>
-    /// Find multiple Feedbacks records for Customer
-    /// </summary>
-    public Task<List<Feedback>> FindFeedbacks(
-        CustomerWhereUniqueInput uniqueId,
-        FeedbackFindManyArgs FeedbackFindManyArgs
-    );
-
-    /// <summary>
-    /// Update multiple Feedbacks records for Customer
-    /// </summary>
-    public Task UpdateFeedbacks(
-        CustomerWhereUniqueInput uniqueId,
-        FeedbackWhereUniqueInput[] feedbacksId
-    );
-
-    /// <summary>
     /// Connect multiple Invoices records to Customer
     /// </summary>
     public Task ConnectInvoices(

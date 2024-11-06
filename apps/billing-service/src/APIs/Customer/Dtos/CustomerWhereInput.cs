@@ -8,8 +8,6 @@ public class CustomerWhereInput
 
     public string? Email { get; set; }
 
-    public List<string>? Feedbacks { get; set; }
-
     public string? Id { get; set; }
 
     public List<string>? Invoices { get; set; }
