@@ -10,11 +10,11 @@ public class NotificationServiceDbContext : DbContext
 
     public DbSet<UserNotificationDbModel> UserNotifications { get; set; }
 
-    public DbSet<NotificationTypeDbModel> NotificationTypes { get; set; }
-
     public DbSet<NotificationDbModel> Notifications { get; set; }
 
-    public DbSet<NotificationSettingDbModel> NotificationSettings { get; set; }
+    public DbSet<NotificationTypeDbModel> NotificationTypes { get; set; }
 
     public DbSet<NotificationLogDbModel> NotificationLogs { get; set; }
+
+    public DbSet<NotificationSettingDbModel> NotificationSettings { get; set; }
 }
