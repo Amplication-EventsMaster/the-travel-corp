@@ -18,14 +18,6 @@ model Feedback {
   updatedAt DateTime @updatedAt
 }
 
-model TypeModel {
-  createdAt DateTime @default(now())
-  id        String   @id @default(cuid())
-  name      String?
-  reviews   Review[]
-  updatedAt DateTime @updatedAt
-}
-
 model Review {
   content     String?
   createdAt   DateTime   @default(now())
@@ -36,4 +28,12 @@ model Review {
   typeField   TypeModel? @relation(fields: [typeFieldId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   typeFieldId String?
   updatedAt   DateTime   @updatedAt
+}
+
+model TypeModel {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  name      String?
+  reviews   Review[]
+  updatedAt DateTime @updatedAt
 }

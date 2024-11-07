@@ -9,14 +9,14 @@ import { FeedbackList } from "./feedback/FeedbackList";
 import { FeedbackCreate } from "./feedback/FeedbackCreate";
 import { FeedbackEdit } from "./feedback/FeedbackEdit";
 import { FeedbackShow } from "./feedback/FeedbackShow";
-import { TypeModelList } from "./typeModel/TypeModelList";
-import { TypeModelCreate } from "./typeModel/TypeModelCreate";
-import { TypeModelEdit } from "./typeModel/TypeModelEdit";
-import { TypeModelShow } from "./typeModel/TypeModelShow";
 import { ReviewList } from "./review/ReviewList";
 import { ReviewCreate } from "./review/ReviewCreate";
 import { ReviewEdit } from "./review/ReviewEdit";
 import { ReviewShow } from "./review/ReviewShow";
+import { TypeModelList } from "./typeModel/TypeModelList";
+import { TypeModelCreate } from "./typeModel/TypeModelCreate";
+import { TypeModelEdit } from "./typeModel/TypeModelEdit";
+import { TypeModelShow } from "./typeModel/TypeModelShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -38,18 +38,18 @@ const App = (): React.ReactElement => {
           show={FeedbackShow}
         />
         <Resource
-          name="TypeModel"
-          list={TypeModelList}
-          edit={TypeModelEdit}
-          create={TypeModelCreate}
-          show={TypeModelShow}
-        />
-        <Resource
           name="Review"
           list={ReviewList}
           edit={ReviewEdit}
           create={ReviewCreate}
           show={ReviewShow}
+        />
+        <Resource
+          name="TypeModel"
+          list={TypeModelList}
+          edit={TypeModelEdit}
+          create={TypeModelCreate}
+          show={TypeModelShow}
         />
       </Admin>
     </div>
