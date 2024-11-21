@@ -1,4 +1,6 @@
 import { Module } from "@nestjs/common";
+import { CacheModule } from "@nestjs/cache-manager";
+import { redisStore } from "cache-manager-ioredis-yet";
 import { CustomerModule } from "./customer/customer.module";
 import { OrderModule } from "./order/order.module";
 import { HealthModule } from "./health/health.module";
@@ -19,6 +21,30 @@ import { ConfigModule } from "@nestjs/config";
     ConfigModule.forRoot({ isGlobal: true }),
     ServeStaticModule.forRootAsync({
       useClass: ServeStaticOptionsService,
+    }),
+    CacheModule.registerAsync({
+      isGlobal: true,
+      imports: [ConfigModule],
+
+      useFactory: async (configService: ConfigService) => {
+        const host = configService.get("REDIS_HOST");
+        const port = configService.get("REDIS_PORT");
+        const username = configService.get("REDIS_USERNAME");
+        const password = configService.get("REDIS_PASSWORD");
+        const ttl = configService.get("REDIS_TTL", 5000);
+
+        return {
+          store: await redisStore({
+            host: host,
+            port: port,
+            username: username,
+            password: password,
+            ttl: ttl,
+          }),
+        };
+      },
+
+      inject: [ConfigService],
     }),
   ],
   providers: [],
