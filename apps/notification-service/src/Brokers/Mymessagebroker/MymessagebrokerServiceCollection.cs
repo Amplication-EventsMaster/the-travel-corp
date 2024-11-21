@@ -2,11 +2,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NotificationService.Brokers.Infrastructure;
 
-namespace NotificationService.Brokers.Kafka;
+namespace NotificationService.Brokers.Mymessagebroker;
 
-public static class KafkaServiceCollection
+public static class MymessagebrokerServiceCollection
 {
-    public static IServiceCollection AddKafka(this IHostApplicationBuilder app)
+    public static IServiceCollection AddMymessagebroker(this IHostApplicationBuilder app)
     {
         var kafkaOptions = app.Configuration.GetSection("kafka").Get<KafkaOptions>();
         if (kafkaOptions == null)
@@ -16,11 +16,11 @@ public static class KafkaServiceCollection
         if (kafkaOptions.BootstrapServers == null)
             throw new Exception("BootstrapServers not found in configuration section kafka");
         return app
-            .Services.AddHostedService(x => new KafkaConsumerService(
+            .Services.AddHostedService(x => new MymessagebrokerConsumerService(
                 x.GetRequiredService<IServiceScopeFactory>(),
                 kafkaOptions
             ))
-            .AddSingleton(x => new KafkaProducerService(kafkaOptions.BootstrapServers))
-            .AddScoped<KafkaMessageHandlersController>();
+            .AddSingleton(x => new MymessagebrokerProducerService(kafkaOptions.BootstrapServers))
+            .AddScoped<MymessagebrokerMessageHandlersController>();
     }
 }

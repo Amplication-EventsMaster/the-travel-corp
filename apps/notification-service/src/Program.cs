@@ -1,7 +1,7 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using NotificationService;
-using NotificationService.Brokers.Kafka;
+using NotificationService.Brokers.Mymessagebroker;
 using NotificationService.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,7 +28,7 @@ builder.Services.AddCors(builder =>
         }
     );
 });
-builder.AddKafka();
+builder.AddMymessagebroker();
 builder.Services.AddDbContext<NotificationServiceDbContext>(opt =>
     opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
