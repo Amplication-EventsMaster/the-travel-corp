@@ -2,6 +2,8 @@ namespace BillingService.APIs.Dtos;
 
 public class Customer
 {
+    public string? Address { get; set; }
+
     public DateTime CreatedAt { get; set; }
 
     public string? Email { get; set; }
@@ -11,6 +13,8 @@ public class Customer
     public List<string>? Invoices { get; set; }
 
     public string? Name { get; set; }
+
+    public string? Phone { get; set; }
 
     public DateTime UpdatedAt { get; set; }
 }
